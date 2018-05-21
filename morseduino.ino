@@ -160,6 +160,8 @@ void printPunctuation() {
   if (myNum==106) pMark='.';
   if (myNum==115) pMark='?';
   Serial.print(pMark);   // print the punctuation mark
+  lcd.print(' ');                 // Print a space to the LCD
+  lcd.scrollDisplayLeft();        //Advance LCD one character to the left
 }
 
 void shiftBits() {
