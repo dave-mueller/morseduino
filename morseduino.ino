@@ -20,10 +20,8 @@
    phrase and they come near the end. However, if you reset and then
    send 'CALL ME WOODY' it will match your speed quite quickly.
 
-Mods by Dave: Variable tone via potentiometer.
-
-TODO: Add LCD support
-   
+Mods by Dave: Variable tone via potentiometer. LCD support currently configured for 16X2 but only uses one line.
+  TODO: Add a clear screen button.  
 */
 #include <LiquidCrystal.h>
 LiquidCrystal lcd(7, 8, 9, 10, 11, 12);
@@ -65,9 +63,10 @@ void setup() {
   pinMode(myKey, INPUT);
   pinMode(speaker,OUTPUT);
   lcd.begin(16, 2);
-  lcd.setCursor(0,0);
+  lcd.setCursor(16,0);
   // initialize the serial communication:
   Serial.begin(9600);
+  lcd.cursor();
 }
 
 
@@ -126,7 +125,8 @@ void printSpace() {
     return;                       // Go back to loop(), we're done here.
   }  
   Serial.print(' ');              // print a space on the monitor window
-  lcd.print(' ');
+  lcd.print(' ');                 // Print a space to the LCD
+  lcd.scrollDisplayLeft();        //Advance LCD one character to the left
   
 }
 
@@ -142,7 +142,9 @@ void printCharacter() {
   }
 
   Serial.print(mySet[myNum]);     // Print the letter that is in this spot in our character set
-  lcd.print(mySet[myNum]);
+  lcd.print(mySet[myNum]);        // Print the letter to the LCD
+  lcd.scrollDisplayLeft();        //Advance LCD one character left
+  
   
 }
 
